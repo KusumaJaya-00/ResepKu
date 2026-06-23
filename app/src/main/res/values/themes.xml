@@ -1,9 +1,46 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+<resources>
+    <!--
+        Token warna aplikasi.
+        Aturan: view/kode WAJIB pakai ?attr/colorXxx (di sini satu-satunya sumber kebenaran).
+        Kalo mau ganti warna app, ubah mapping warna di style ini saja.
+    -->
     <style name="Base.Theme.ResepKu" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <!-- Primary: warna utama brand (orange) -->
+        <item name="colorPrimary">@color/orange_600</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimaryContainer">@color/orange_100</item>
+        <item name="colorOnPrimaryContainer">@color/orange_600</item>
+
+        <!-- Secondary: warna aksen (orange lebih muda) -->
+        <item name="colorSecondary">@color/orange_400</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorSecondaryContainer">@color/orange_200</item>
+        <item name="colorOnSecondaryContainer">@color/orange_600</item>
+
+        <!-- Error: warna untuk pesan/gagal (merah) -->
+        <item name="colorError">@color/red_600</item>
+        <item name="colorOnError">@color/white</item>
+        <item name="colorErrorContainer">@color/red_200</item>
+        <item name="colorOnErrorContainer">@color/red_600</item>
+
+        <!-- Background: warna latar layar penuh -->
+        <item name="colorBackground">@color/white</item>
+        <item name="colorOnBackground">@color/stone_900</item>
+
+        <!-- Surface: warna permukaan kartu / sheet / bottom nav -->
+        <item name="colorSurface">@color/white</item>
+        <item name="colorOnSurface">@color/stone_900</item>
+        <item name="colorSurfaceVariant">@color/stone_100</item>
+        <item name="colorOnSurfaceVariant">@color/stone_900</item>
+
+        <!-- Outline: garis batas (divider, border input, dll) -->
+        <item name="colorOutline">@color/stone_300</item>
     </style>
 
     <style name="Theme.ResepKu" parent="Base.Theme.ResepKu" />
+
+    <!-- Pill indicator di bottom nav dimatiin karena background pill di-handle manual di tiap tab. -->
+    <style name="Widget.ResepKu.BottomNavigation.ActiveIndicator">
+        <item name="android:color">@android:color/transparent</item>
+    </style>
 </resources>

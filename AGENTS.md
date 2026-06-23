@@ -32,13 +32,13 @@ REFERENSI biar AI memakai versi yang sama & tidak menyuruh menambah ulang.
 - Izin INTERNET sudah ada di AndroidManifest.xml:
   <uses-permission android:name="android.permission.INTERNET" />
 - Dependency utama (jangan ganti versinya tanpa koordinasi Lead):
-    - Retrofit 2.9.0 + converter-gson 2.9.0
-    - Glide 4.16.0
-    - RecyclerView 1.3.2
-    - lifecycle-viewmodel-ktx 2.7.0
-    - SQLite: TANPA library tambahan (bawaan Android).
-      (Navigation Component & kotlinx-coroutines TIDAK dipakai - navigasi pakai
-      FragmentManager + Intent biasa, async pakai Retrofit enqueue).
+  - Retrofit 2.9.0 + converter-gson 2.9.0
+  - Glide 4.16.0
+  - RecyclerView 1.3.2
+  - lifecycle-viewmodel-ktx 2.7.0
+  - SQLite: TANPA library tambahan (bawaan Android).
+    (Navigation Component & kotlinx-coroutines TIDAK dipakai - navigasi pakai
+    FragmentManager + Intent biasa, async pakai Retrofit enqueue).
 - Kalau butuh library di luar daftar ini, koordinasi dengan Team Lead dulu.
 
 ## 4. LARANGAN (jangan pernah dilanggar)
@@ -69,8 +69,8 @@ MainActivity.kt   -> host BottomNavigationView + ganti 3 Fragment (FragmentManag
   https://raw.githubusercontent.com/USERNAME/resepku-data/main/
 - GET resep.json  -> mengembalikan SEMUA resep (List<Resep>) sekaligus.
 - Tidak ada endpoint detail/search di server. Detail & pencarian diproses di app:
-    - Detail: kirim objek Resep yang sudah dimuat lewat Intent (tanpa request lagi).
-    - Search & filter kategori: saring list di sisi app pakai filter Kotlin (client-side).
+  - Detail: kirim objek Resep yang sudah dimuat lewat Intent (tanpa request lagi).
+  - Search & filter kategori: saring list di sisi app pakai filter Kotlin (client-side).
 - Data berbahasa Indonesia, read-only, gratis, tanpa API key.
 - Tiap item resep.json: { id, nama, gambar, kategori, deskripsi, bahan[], langkah[] }.
 
@@ -125,12 +125,28 @@ Layout:
 - Pakai Material Components: MaterialCardView untuk kartu resep, MaterialButton, dll.
 
 Konsistensi desain (UI ikut dinilai, jadi buat rapi & seragam):
-- Warna: tentukan 1 warna utama + 1 aksen, simpan di colors.xml, pakai sama di semua layar.
-  Tema warna hangat cocok untuk app masakan (mis. oranye / merah).
-- Jarak (padding & margin): pakai kelipatan 8dp (8, 16, 24). Taruh di dimens.xml.
-- Teks: ukuran konsisten (judul lebih besar, isi lebih kecil). Semua teks di strings.xml.
-- Sudut kartu & gambar dibuat sedikit membulat (cornerRadius) biar terlihat modern.
+
+DESIGN SYSTEM - ambil angka dari SKALA, jangan asal (base Android = 4dp):
+- Skala spasi (dp) untuk SEMUA padding/margin/jarak, pilih sesuai kebutuhan:
+  2, 4, 8, 12, 16, 24, 32, 48, 56, 64. DILARANG angka di luar skala (7, 10, 13, 18, 20-an acak).
+  Default: padding tepi layar = 16dp, jarak antar kartu/item = 8dp, antar section = 24dp.
+- Type scale (sp) untuk ukuran teks: 12, 14, 16, 18, 20, 22, 24, 28, 34.
+  Body = 16sp, subjudul = 18sp, judul kartu = 20-22sp, judul Detail = 24sp.
+- Tulis nilainya MANUAL langsung di XML (TANPA dimens.xml), asalkan selalu dari skala di atas.
+- Corner radius kartu = 12dp; elevation kartu = 1-2dp. Gambar: scaleType=centerCrop + tinggi tetap.
+
+WARNA - pakai color token 2 lapis (1 sumber kebenaran, gampang ganti tema):
+- Lapis 1 (colors.xml) = palette mentah/hex (orange_600, white, gray_300, dst). JANGAN dipakai langsung di view.
+- Lapis 2 (themes.xml, style Theme.ResepKu) = role/token: colorPrimary, colorOnPrimary,
+  colorSecondary, colorSurface, colorOnSurface, colorSurfaceVariant, colorOutline, colorError.
+- Di layout/kode WAJIB pakai ?attr/... (mis. ?attr/colorPrimary, ?attr/colorSurface, ?attr/colorOnSurface).
+  DILARANG hardcode hex (#EA580C) atau @color/orange_600 langsung di view.
+- Mau ganti warna app? Ubah mapping di themes.xml saja (1 tempat), semua layar ikut berubah.
+- Teks tetap di strings.xml; jangan hardcode teks di layout.
 - Gambar resep: ImageView + Glide, selalu beri placeholder & gambar error.
+
+Saat AI generate layout XML: ikuti skala + token di atas, tiru gaya item_resep.xml yang sudah ada,
+dan SETELAH selesai cek ulang tiap nilai dp/sp/warna - kalau ada yang di luar skala/bukan ?attr, perbaiki.
 
 Wajib ada di tiap layar yang mengambil data:
 - ProgressBar (loading), RecyclerView (data), TextView pesan (error/kosong)
@@ -227,7 +243,8 @@ binding.tvPesan.visibility = View.VISIBLE
 - Patuhi bentuk data model yang sudah disepakati; JANGAN ubah nama field sendiri.
   Kalau perlu diubah, koordinasi dulu karena dipakai banyak screen.
 - Pakai ulang fungsi/komponen yang sudah ada; jangan bikin duplikat (DRY).
-- Warna & ukuran taruh di colors.xml / dimens.xml, jangan hardcode di layout.
+- Warna pakai color token (?attr/... dari themes.xml), jangan hardcode hex di layout.
+  Ukuran spasi & teks ambil dari skala desain (lihat Bagian 9), ditulis manual di XML.
 - Format kode konsisten: indentasi rapi, hapus import yang tidak terpakai.
 
 ## 14. Batas scope (jangan keluar dari bagian sendiri)
@@ -292,10 +309,10 @@ Sebelum membuat atau mengubah kode, jelaskan SINGKAT dulu:
 - fitur : tiap anggota bikin branch sendiri DARI dev.
   Format nama: nama/feat-namafitur (mis. jay/feat-home).
 - Alur harian:
-    1. `git checkout dev` lalu `git pull origin dev` (ambil update terbaru teman).
-    2. `git checkout -b nama/feat-fitur` (bikin branch dari dev).
-    3. Ngoding -> commit -> `git push origin nama/feat-fitur`.
-    4. Merge branch fitur ke dev LEWAT Pull Request (biar bisa di-review teman).
+  1. `git checkout dev` lalu `git pull origin dev` (ambil update terbaru teman).
+  2. `git checkout -b nama/feat-fitur` (bikin branch dari dev).
+  3. Ngoding -> commit -> `git push origin nama/feat-fitur`.
+  4. Merge branch fitur ke dev LEWAT Pull Request (biar bisa di-review teman).
 - SELALU pull dev terbaru SEBELUM mulai & sebelum merge, biar minim konflik.
 - Setelah semua fitur jadi & stabil di dev, baru FINAL merge dev -> main.
 - Branch fitur TIDAK perlu dihapus setelah merge — biarkan sebagai history pengerjaan.
