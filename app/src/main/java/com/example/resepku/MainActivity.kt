@@ -81,6 +81,10 @@ class MainActivity : AppCompatActivity() {
     // Pasang pill background + warna icon/teks versi "aktif".
     private fun aktifkan(tab: LinearLayout, img: ImageView, tv: TextView) {
         tab.setBackgroundResource(R.drawable.bg_tab_active)
+        // Tab favorit: ganti ke ikon filled waktu aktif.
+        if (tab.id == R.id.tabFavorit) {
+            img.setImageResource(R.drawable.ic_menu_favorit)
+        }
         val warnaAktif = MaterialColors.getColor(
             tab,
             com.google.android.material.R.attr.colorOnSecondaryContainer
@@ -92,6 +96,10 @@ class MainActivity : AppCompatActivity() {
     // Balikin ke transparan + warna icon/teks versi "non-aktif".
     private fun nonaktifkan(tab: LinearLayout, img: ImageView, tv: TextView) {
         tab.setBackgroundColor(Color.TRANSPARENT)
+        // Tab favorit: ganti ke ikon outline waktu non-aktif.
+        if (tab.id == R.id.tabFavorit) {
+            img.setImageResource(R.drawable.ic_menu_favorit_outline)
+        }
         val warnaNonaktif = MaterialColors.getColor(
             tab,
             com.google.android.material.R.attr.colorOnSurfaceVariant
