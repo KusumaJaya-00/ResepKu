@@ -1,3 +1,25 @@
 <resources>
     <string name="app_name">ResepKu</string>
+
+    <!-- Menu navigasi bawah -->
+    <string name="menu_home">Home</string>
+    <string name="menu_search">Search</string>
+    <string name="menu_favorit">Favorit</string>
+
+    <!-- Pesan loading / error / kosong (seragam di semua layar, lihat AGENTS.md Bagian 12) -->
+    <string name="msg_load_failed">Gagal memuat data</string>
+    <string name="msg_empty_recipe">Belum ada resep</string>
+    <string name="msg_empty_search">Resep tidak ditemukan</string>
+    <string name="msg_empty_favorite">Belum ada favorit</string>
+
+    <!-- Aksi tombol umum -->
+    <string name="action_retry">Coba lagi</string>
+    <string name="action_back">Kembali</string>
+
+    <!-- Search -->
+    <string name="hint_search">Cari resep…</string>
+
+    <!-- Favorite (tombol di halaman detail) -->
+    <string name="action_favorite_add">Tambah ke favorit</string>
+    <string name="action_favorite_remove">Hapus dari favorit</string>
 </resources>
