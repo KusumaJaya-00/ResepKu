@@ -1,12 +1,12 @@
 package com.example.resepku
 
-import android.graphics.Color
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
@@ -14,7 +14,6 @@ import com.example.resepku.databinding.ActivityMainBinding
 import com.example.resepku.ui.favorite.FavoriteFragment
 import com.example.resepku.ui.home.HomeFragment
 import com.example.resepku.ui.search.SearchFragment
-import com.google.android.material.color.MaterialColors
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -32,7 +31,6 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        // Klik tab = ganti Fragment + pindahkan gaya aktif ke tab tsb.
         binding.tabHome.setOnClickListener {
             tampilkanFragment(HomeFragment())
             aturTabAktif(TAB_HOME)
@@ -52,7 +50,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    // Mengganti isi container sesuai menu yang dipilih user.
     private fun tampilkanFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragmentContainer, fragment)
@@ -65,7 +62,6 @@ class MainActivity : AppCompatActivity() {
         const val TAB_FAVORIT = 2
     }
 
-    // Pindahkan pill + warna "aktif" ke tab yang dipilih, tab lain di-reset.
     private fun aturTabAktif(tab: Int) {
         nonaktifkan(binding.tabHome, binding.imgTabHome, binding.tvTabHome)
         nonaktifkan(binding.tabSearch, binding.imgTabSearch, binding.tvTabSearch)
@@ -78,32 +74,22 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    // Pasang pill background + warna icon/teks versi "aktif".
     private fun aktifkan(tab: LinearLayout, img: ImageView, tv: TextView) {
         tab.setBackgroundResource(R.drawable.bg_tab_active)
-        // Tab favorit: ganti ke ikon filled waktu aktif.
         if (tab.id == R.id.tabFavorit) {
             img.setImageResource(R.drawable.ic_menu_favorit)
         }
-        val warnaAktif = MaterialColors.getColor(
-            tab,
-            com.google.android.material.R.attr.colorOnSecondaryContainer
-        )
+        val warnaAktif = ContextCompat.getColor(tab.context, R.color.orange_600)
         img.setColorFilter(warnaAktif)
         tv.setTextColor(warnaAktif)
     }
 
-    // Balikin ke transparan + warna icon/teks versi "non-aktif".
     private fun nonaktifkan(tab: LinearLayout, img: ImageView, tv: TextView) {
-        tab.setBackgroundColor(Color.TRANSPARENT)
-        // Tab favorit: ganti ke ikon outline waktu non-aktif.
+        tab.setBackgroundColor(ContextCompat.getColor(tab.context, R.color.transparent))
         if (tab.id == R.id.tabFavorit) {
             img.setImageResource(R.drawable.ic_menu_favorit_outline)
         }
-        val warnaNonaktif = MaterialColors.getColor(
-            tab,
-            com.google.android.material.R.attr.colorOnSurfaceVariant
-        )
+        val warnaNonaktif = ContextCompat.getColor(tab.context, R.color.stone_900)
         img.setColorFilter(warnaNonaktif)
         tv.setTextColor(warnaNonaktif)
     }

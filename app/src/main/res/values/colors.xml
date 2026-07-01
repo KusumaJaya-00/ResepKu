@@ -5,6 +5,10 @@
     <color name="orange_200">#FED7AA</color>
     <color name="orange_100">#FFEDD5</color>
     <color name="white">#FFFFFF</color>
+    <color name="transparent">#00000000</color>
+    <color name="black">#1C1917</color>
+    <color name="gray_100">#F5F5F4</color>
+    <color name="gray_300">#D6D3D1</color>
     <color name="stone_900">#1C1917</color>
     <color name="stone_300">#D6D3D1</color>
     <color name="stone_100">#F5F5F4</color>

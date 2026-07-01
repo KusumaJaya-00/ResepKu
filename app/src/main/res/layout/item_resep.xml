@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<com.google.android.material.card.MaterialCardView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="16dp"
     android:layout_marginVertical="4dp"
-    app:cardBackgroundColor="?attr/colorSecondaryContainer"
-    app:cardCornerRadius="12dp"
-    app:cardElevation="1dp"
-    app:strokeWidth="0dp">
+    android:background="@drawable/bg_card_recipe"
+    android:elevation="2dp"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -44,7 +42,7 @@
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:textColor="@color/stone_900"
                     android:textSize="20sp" />
 
                 <TextView
@@ -57,7 +55,7 @@
                     android:maxLines="1"
                     android:paddingHorizontal="8dp"
                     android:paddingVertical="2dp"
-                    android:textColor="?attr/colorPrimary"
+                    android:textColor="@color/orange_600"
                     android:textSize="12sp" />
             </LinearLayout>
 
@@ -66,12 +64,12 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_marginStart="8dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
+                android:background="@color/transparent"
                 android:contentDescription="@string/action_favorite_add"
                 android:padding="12dp"
                 android:src="@drawable/ic_menu_favorit_outline"
-                app:tint="?attr/colorOnSurfaceVariant" />
+                app:tint="@color/stone_900" />
         </LinearLayout>
     </LinearLayout>
 
-</com.google.android.material.card.MaterialCardView>
+</LinearLayout>

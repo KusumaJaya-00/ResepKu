@@ -6,14 +6,14 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/colorSurface"
+    android:background="@color/white"
     tools:context=".MainActivity">
 
     <LinearLayout
         android:id="@+id/header"
         android:layout_width="0dp"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
+        android:layout_height="56dp"
+        android:background="@color/orange_600"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingHorizontal="16dp"
@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-medium"
             android:text="@string/app_name"
-            android:textColor="?attr/colorOnPrimary"
+            android:textColor="@color/white"
             android:textSize="22sp"
             android:textStyle="bold" />
     </LinearLayout>
@@ -45,7 +45,7 @@
         android:id="@+id/dividerBottomNav"
         android:layout_width="0dp"
         android:layout_height="1dp"
-        android:background="?attr/colorOutline"
+        android:background="@color/stone_300"
         app:layout_constraintBottom_toTopOf="@id/llBottomNav"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -54,7 +54,8 @@
         android:id="@+id/llBottomNav"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="?attr/colorSurface"
+        android:background="@color/white"
+        android:baselineAligned="false"
         android:orientation="horizontal"
         android:paddingHorizontal="16dp"
         android:paddingVertical="12dp"
@@ -79,7 +80,7 @@
                 android:layout_height="24dp"
                 android:contentDescription="@string/menu_home"
                 android:src="@drawable/ic_menu_home"
-                app:tint="?attr/colorOnSecondaryContainer" />
+                app:tint="@color/orange_600" />
 
             <TextView
                 android:id="@+id/tvTabHome"
@@ -87,7 +88,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:text="@string/menu_home"
-                android:textColor="?attr/colorOnSecondaryContainer"
+                android:textColor="@color/orange_600"
                 android:textSize="12sp" />
         </LinearLayout>
 
@@ -96,7 +97,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@android:color/transparent"
+            android:background="@color/transparent"
             android:gravity="center"
             android:orientation="vertical"
             android:paddingHorizontal="12dp"
@@ -108,7 +109,7 @@
                 android:layout_height="24dp"
                 android:contentDescription="@string/menu_search"
                 android:src="@drawable/ic_menu_search"
-                app:tint="?attr/colorOnSurfaceVariant" />
+                app:tint="@color/stone_900" />
 
             <TextView
                 android:id="@+id/tvTabSearch"
@@ -116,7 +117,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:text="@string/menu_search"
-                android:textColor="?attr/colorOnSurfaceVariant"
+                android:textColor="@color/stone_900"
                 android:textSize="12sp" />
         </LinearLayout>
 
@@ -125,7 +126,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@android:color/transparent"
+            android:background="@color/transparent"
             android:gravity="center"
             android:orientation="vertical"
             android:paddingHorizontal="12dp"
@@ -137,7 +138,7 @@
                 android:layout_height="24dp"
                 android:contentDescription="@string/menu_favorit"
                 android:src="@drawable/ic_menu_favorit_outline"
-                app:tint="?attr/colorOnSurfaceVariant" />
+                app:tint="@color/stone_900" />
 
             <TextView
                 android:id="@+id/tvTabFavorit"
@@ -145,7 +146,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:text="@string/menu_favorit"
-                android:textColor="?attr/colorOnSurfaceVariant"
+                android:textColor="@color/stone_900"
                 android:textSize="12sp" />
         </LinearLayout>
 
