@@ -15,11 +15,31 @@ import com.example.resepku.ui.home.HomeFragment
 import com.example.resepku.ui.search.SearchFragment
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var tabHome: LinearLayout
+    private lateinit var tabSearch: LinearLayout
+    private lateinit var tabFavorit: LinearLayout
+    private lateinit var imgTabHome: ImageView
+    private lateinit var imgTabSearch: ImageView
+    private lateinit var imgTabFavorit: ImageView
+    private lateinit var tvTabHome: TextView
+    private lateinit var tvTabSearch: TextView
+    private lateinit var tvTabFavorit: TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
         setContentView(R.layout.activity_main)
+
+        tabHome = findViewById(R.id.tabHome)
+        tabSearch = findViewById(R.id.tabSearch)
+        tabFavorit = findViewById(R.id.tabFavorit)
+        imgTabHome = findViewById(R.id.imgTabHome)
+        imgTabSearch = findViewById(R.id.imgTabSearch)
+        imgTabFavorit = findViewById(R.id.imgTabFavorit)
+        tvTabHome = findViewById(R.id.tvTabHome)
+        tvTabSearch = findViewById(R.id.tvTabSearch)
+        tvTabFavorit = findViewById(R.id.tvTabFavorit)
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { view, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -27,15 +47,15 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        findViewById<LinearLayout>(R.id.tabHome).setOnClickListener {
+        tabHome.setOnClickListener {
             tampilkanFragment(HomeFragment())
             aturTabAktif(TAB_HOME)
         }
-        findViewById<LinearLayout>(R.id.tabSearch).setOnClickListener {
+        tabSearch.setOnClickListener {
             tampilkanFragment(SearchFragment())
             aturTabAktif(TAB_SEARCH)
         }
-        findViewById<LinearLayout>(R.id.tabFavorit).setOnClickListener {
+        tabFavorit.setOnClickListener {
             tampilkanFragment(FavoriteFragment())
             aturTabAktif(TAB_FAVORIT)
         }
@@ -59,14 +79,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun aturTabAktif(tab: Int) {
-        nonaktifkan(findViewById(R.id.tabHome), findViewById(R.id.imgTabHome), findViewById(R.id.tvTabHome))
-        nonaktifkan(findViewById(R.id.tabSearch), findViewById(R.id.imgTabSearch), findViewById(R.id.tvTabSearch))
-        nonaktifkan(findViewById(R.id.tabFavorit), findViewById(R.id.imgTabFavorit), findViewById(R.id.tvTabFavorit))
+        nonaktifkan(tabHome, imgTabHome, tvTabHome)
+        nonaktifkan(tabSearch, imgTabSearch, tvTabSearch)
+        nonaktifkan(tabFavorit, imgTabFavorit, tvTabFavorit)
 
         when (tab) {
-            TAB_HOME -> aktifkan(findViewById(R.id.tabHome), findViewById(R.id.imgTabHome), findViewById(R.id.tvTabHome))
-            TAB_SEARCH -> aktifkan(findViewById(R.id.tabSearch), findViewById(R.id.imgTabSearch), findViewById(R.id.tvTabSearch))
-            TAB_FAVORIT -> aktifkan(findViewById(R.id.tabFavorit), findViewById(R.id.imgTabFavorit), findViewById(R.id.tvTabFavorit))
+            TAB_HOME -> aktifkan(tabHome, imgTabHome, tvTabHome)
+            TAB_SEARCH -> aktifkan(tabSearch, imgTabSearch, tvTabSearch)
+            TAB_FAVORIT -> aktifkan(tabFavorit, imgTabFavorit, tvTabFavorit)
         }
     }
 
