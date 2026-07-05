@@ -20,4 +20,11 @@
 
     <string name="desc_gambar_resep">Gambar resep</string>
     <string name="desc_gambar_resep_format">Gambar %1$s</string>
+
+    <string name="label_bahan">Bahan-Bahan</string>
+    <string name="label_langkah">Langkah Memasak</string>
+    <string name="desc_tombol_favorit">Tombol favorit</string>
+
+    <string name="msg_favorit_ditambah">Ditambahkan ke favorit</string>
+    <string name="msg_favorit_dihapus">Dihapus dari favorit</string>
 </resources>
