@@ -24,6 +24,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var tvTabHome: TextView
     private lateinit var tvTabSearch: TextView
     private lateinit var tvTabFavorit: TextView
+    private lateinit var mainContainer: androidx.constraintlayout.widget.ConstraintLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,8 +41,9 @@ class MainActivity : AppCompatActivity() {
         tvTabHome = findViewById(R.id.tvTabHome)
         tvTabSearch = findViewById(R.id.tvTabSearch)
         tvTabFavorit = findViewById(R.id.tvTabFavorit)
+        mainContainer = findViewById(R.id.main)
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { view, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(mainContainer) { view, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             view.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets

@@ -6,6 +6,8 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
@@ -14,12 +16,20 @@ import com.example.resepku.data.local.DatabaseHelper
 import com.example.resepku.data.remote.Resep
 
 class DetailActivity : AppCompatActivity() {
+    private lateinit var mainContainer: ConstraintLayout
+
 
     private var isFavorit = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
+        mainContainer = findViewById(R.id.main)
+        ViewCompat.setOnApplyWindowInsetsListener(mainContainer) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
 
         // Ambil objek Resep yang dikirim lewat Intent
         val resep = intent.getSerializableExtra("resep") as? Resep ?: run {
