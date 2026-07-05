@@ -1,10 +1,150 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".ui.detail.DetailActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Gambar resep + tombol favorit mengambang di pojok kanan atas -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/ivGambarResep"
+                android:layout_width="match_parent"
+                android:layout_height="240dp"
+                android:background="@drawable/bg_image_placeholder"
+                android:contentDescription="@string/desc_gambar_resep"
+                android:scaleType="centerCrop" />
+
+            <!-- Tombol favorit mengambang di pojok kanan atas gambar -->
+            <ImageButton
+                android:id="@+id/btnFavorit"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="top|end"
+                android:layout_margin="12dp"
+                android:background="@color/transparent"
+                android:contentDescription="@string/desc_tombol_favorit"
+                android:padding="8dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_menu_favorit_outline"
+                android:tint="@color/red_600" />
+
+        </FrameLayout>
+
+        <!-- Nama resep -->
+        <TextView
+            android:id="@+id/tvNamaResep"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="16dp"
+            android:paddingTop="16dp"
+            android:paddingEnd="16dp"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            tools:text="Nasi Goreng Spesial" />
+
+        <!-- Chip kategori -->
+        <TextView
+            android:id="@+id/tvKategoriResep"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_chip_outline"
+            android:paddingStart="12dp"
+            android:paddingTop="4dp"
+            android:paddingEnd="12dp"
+            android:paddingBottom="4dp"
+            android:textColor="@color/orange_600"
+            android:textSize="12sp"
+            tools:text="Makanan Utama" />
+
+        <!-- Section: Bahan-Bahan -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="16dp"
+            android:paddingTop="24dp"
+            android:paddingEnd="16dp"
+            android:text="@string/label_bahan"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <!-- Opsi A (aktif): TextView panjang bernomor -->
+        <TextView
+            android:id="@+id/tvBahan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lineSpacingExtra="4dp"
+            android:paddingStart="16dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="16dp"
+            android:textColor="@color/stone_900"
+            android:textSize="16sp"
+            tools:text="1. 2 piring nasi putih\n2. 2 butir telur\n3. 3 siung bawang putih" />
+
+        <!-- Opsi B (nonaktif): RecyclerView untuk daftar bahan -->
+        <!--
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvBahan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:nestedScrollingEnabled="false"
+            android:paddingStart="16dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="16dp" />
+        -->
+
+        <!-- Section: Langkah Memasak -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="16dp"
+            android:paddingTop="24dp"
+            android:paddingEnd="16dp"
+            android:text="@string/label_langkah"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <!-- Opsi A (aktif): TextView panjang bernomor -->
+        <TextView
+            android:id="@+id/tvLangkah"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lineSpacingExtra="4dp"
+            android:paddingStart="16dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="32dp"
+            android:textColor="@color/stone_900"
+            android:textSize="16sp"
+            tools:text="1. Panaskan minyak\n2. Tumis bawang putih\n3. Masukkan nasi" />
+
+        <!-- Opsi B (nonaktif): RecyclerView untuk daftar langkah -->
+        <!--
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvLangkah"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:nestedScrollingEnabled="false"
+            android:paddingStart="16dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="32dp" />
+        -->
+
+    </LinearLayout>
+
+</ScrollView>
