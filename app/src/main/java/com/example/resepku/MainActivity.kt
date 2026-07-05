@@ -10,36 +10,32 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
-import com.example.resepku.databinding.ActivityMainBinding
 import com.example.resepku.ui.favorite.FavoriteFragment
 import com.example.resepku.ui.home.HomeFragment
 import com.example.resepku.ui.search.SearchFragment
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityMainBinding
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(R.layout.activity_main)
 
-        ViewCompat.setOnApplyWindowInsetsListener(binding.main) { view, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { view, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             view.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
-        binding.tabHome.setOnClickListener {
+        findViewById<LinearLayout>(R.id.tabHome).setOnClickListener {
             tampilkanFragment(HomeFragment())
             aturTabAktif(TAB_HOME)
         }
-        binding.tabSearch.setOnClickListener {
+        findViewById<LinearLayout>(R.id.tabSearch).setOnClickListener {
             tampilkanFragment(SearchFragment())
             aturTabAktif(TAB_SEARCH)
         }
-        binding.tabFavorit.setOnClickListener {
+        findViewById<LinearLayout>(R.id.tabFavorit).setOnClickListener {
             tampilkanFragment(FavoriteFragment())
             aturTabAktif(TAB_FAVORIT)
         }
@@ -63,14 +59,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun aturTabAktif(tab: Int) {
-        nonaktifkan(binding.tabHome, binding.imgTabHome, binding.tvTabHome)
-        nonaktifkan(binding.tabSearch, binding.imgTabSearch, binding.tvTabSearch)
-        nonaktifkan(binding.tabFavorit, binding.imgTabFavorit, binding.tvTabFavorit)
+        nonaktifkan(findViewById(R.id.tabHome), findViewById(R.id.imgTabHome), findViewById(R.id.tvTabHome))
+        nonaktifkan(findViewById(R.id.tabSearch), findViewById(R.id.imgTabSearch), findViewById(R.id.tvTabSearch))
+        nonaktifkan(findViewById(R.id.tabFavorit), findViewById(R.id.imgTabFavorit), findViewById(R.id.tvTabFavorit))
 
         when (tab) {
-            TAB_HOME -> aktifkan(binding.tabHome, binding.imgTabHome, binding.tvTabHome)
-            TAB_SEARCH -> aktifkan(binding.tabSearch, binding.imgTabSearch, binding.tvTabSearch)
-            TAB_FAVORIT -> aktifkan(binding.tabFavorit, binding.imgTabFavorit, binding.tvTabFavorit)
+            TAB_HOME -> aktifkan(findViewById(R.id.tabHome), findViewById(R.id.imgTabHome), findViewById(R.id.tvTabHome))
+            TAB_SEARCH -> aktifkan(findViewById(R.id.tabSearch), findViewById(R.id.imgTabSearch), findViewById(R.id.tvTabSearch))
+            TAB_FAVORIT -> aktifkan(findViewById(R.id.tabFavorit), findViewById(R.id.imgTabFavorit), findViewById(R.id.tvTabFavorit))
         }
     }
 

@@ -12,7 +12,7 @@ KODE HARUS MUDAH DIJELASKAN saat ujian lisan. Utamakan kesederhanaan.
 
 ## 2. Tech Stack (WAJIB diikuti)
 - Bahasa: Kotlin
-- UI: XML Layout (View system) + ViewBinding. TANPA Material Components -
+- UI: XML Layout (View system) + findViewById (TANPA ViewBinding). TANPA Material Components -
   semua komponen (kartu, chip, tombol, bottom nav, input) dibuat manual dari view
   standar + background drawable (shape XML) biar bebas diatur
 - Arsitektur: MVVM (Model - View - ViewModel) - TANPA Repository
@@ -31,7 +31,7 @@ Bagian ini dikerjakan Team Lead SEKALI di awal lalu di-push ke GitHub.
 Anggota lain tinggal pull dan TIDAK perlu mengubahnya. Ditulis di sini sebagai
 REFERENSI biar AI memakai versi yang sama & tidak menyuruh menambah ulang.
 - minSdk 24, targetSdk 34, compileSdk 34.
-- ViewBinding sudah diaktifkan: buildFeatures { viewBinding = true }.
+- Akses view pakai findViewById (ViewBinding TIDAK dipakai; buildFeatures { viewBinding } tidak perlu diaktifkan).
 - Izin INTERNET sudah ada di AndroidManifest.xml:
   <uses-permission android:name="android.permission.INTERNET" />
 - Dependency utama (jangan ganti versinya tanpa koordinasi Lead):
@@ -47,7 +47,10 @@ REFERENSI biar AI memakai versi yang sama & tidak menyuruh menambah ulang.
 ## 4. LARANGAN (jangan pernah dilanggar)
 - JANGAN pakai Jetpack Compose. Semua UI pakai XML + ViewBinding.
 - JANGAN pakai Room, @Dao, atau @Entity. Database pakai SQLiteOpenHelper + SQL manual.
-- JANGAN pakai findViewById berulang; pakai ViewBinding.
+- JANGAN pakai ViewBinding atau DataBinding; akses view pakai findViewById.
+  WAJIB PERBAIKI kalau menemukan file yang MASIH pakai ViewBinding - tandanya:
+  import ...databinding.* / variabel binding (mis. binding.tvJudul), _binding + onDestroyView,
+  atau buildFeatures { viewBinding = true } di build.gradle.kts. Ganti semua ke findViewById.
 - JANGAN pakai library tambahan di luar daftar stack tanpa izin tim.
 - JANGAN pakai Coroutines, Flow, atau RxJava untuk async; cukup Retrofit enqueue.
 - JANGAN pakai framework rumit (Hilt/Dagger) yang tim belum paham.
@@ -117,7 +120,7 @@ data class Resep(
   Contoh: tvJudul, btnFavorit, imgResep, rvResep, etCari, llKartu.
 - Pola penamaan 2 lapis: id di XML pakai awalan tipe (tvJudul); saat di-assign
   ke variabel Kotlin boleh LEBIH SINGKAT tanpa awalan
-  (mis. val judul = binding.tvJudul), ASAL tetap jelas.
+  (mis. val judul = findViewById<TextView>(R.id.tvJudul)), ASAL tetap jelas.
   JANGAN sampai 1 huruf (val j) — harus tetap kebaca.
 - Nama file XML: fragment_<fitur>.xml, activity_<nama>.xml, item_<list>.xml
   (mis. fragment_home.xml, item_resep.xml).
@@ -182,17 +185,24 @@ Navigasi:
     val resep = intent.getSerializableExtra("resep") as Resep
   Detail TIDAK request API lagi — semua data (bahan, langkah) sudah ada di objek.
 
-## 10. ViewBinding di Fragment & konvensi nama class
-- Di Fragment, set binding ke null pada onDestroyView untuk cegah memory leak:
-    private var _binding: FragmentHomeBinding? = null
-    private val binding get() = _binding!!
-    // di onDestroyView(): _binding = null
+## 10. Akses View (findViewById) di Fragment & konvensi nama class
+- Akses view pakai findViewById. Di Fragment, cari view dari root hasil inflate:
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View {
+        val view = inflater.inflate(R.layout.fragment_home, container, false)
+        val rvResep = view.findViewById<RecyclerView>(R.id.rvResep)
+        val progressBar = view.findViewById<ProgressBar>(R.id.progressBar)
+        // set adapter, panggil ViewModel, dll
+        return view
+    }
+  Di Activity: cukup findViewById(R.id.xxx) SETELAH setContentView(...).
 - Nama class per fitur dibuat KONSISTEN & sejajar:
   <Fitur>Fragment + <Fitur>ViewModel (mis. HomeFragment + HomeViewModel).
   Khusus Detail: DetailActivity (bukan Fragment). DetailViewModel TIDAK wajib karena
   Detail tidak mengambil data dari API (cukup baca objek Resep dari Intent).
 - Adapter RecyclerView: <Nama>Adapter (mis. ResepAdapter), pakai
-  RecyclerView.Adapter sederhana (ViewHolder + ViewBinding item layout).
+  RecyclerView.Adapter sederhana (ViewHolder + findViewById di item layout).
 
 ## 11. Cara ambil & tampilkan data: Retrofit Callback (enqueue, tanpa Coroutines)
 Async cukup pakai bawaan Retrofit (enqueue). TIDAK pakai Coroutines & TIDAK pakai LiveData.
@@ -219,7 +229,7 @@ Async cukup pakai bawaan Retrofit (enqueue). TIDAK pakai Coroutines & TIDAK paka
 - Fragment cukup memanggil & menentukan aksi saat berhasil / gagal:
     viewModel.ambilResep(
         onBerhasil = { list -> adapter.submitList(list) },
-        onGagal = { binding.tvPesan.text = "Gagal memuat data" }
+        onGagal = { tvPesan.text = "Gagal memuat data" }
     )
 - Untuk SEARCH & FILTER: ambil SEMUA resep sekali pakai getResep(), simpan di list,
   lalu saring di sisi app (CLIENT-SIDE) pakai filter Kotlin
@@ -237,20 +247,20 @@ Setiap layar yang ambil data dari API WAJIB menangani 3 kondisi:
 
 Contoh pola (loading sebelum panggil, sukses & error di dalam callback):
     private fun tampilkanResep() {
-        binding.progressBar.visibility = View.VISIBLE   // mulai loading
-        binding.tvPesan.visibility = View.GONE
+        progressBar.visibility = View.VISIBLE   // mulai loading
+        tvPesan.visibility = View.GONE
         viewModel.ambilResep(
             onBerhasil = { list ->
-                binding.progressBar.visibility = View.GONE
+                progressBar.visibility = View.GONE
                 adapter.submitList(list)
                 // tampilkan pesan kalau data kosong
-                binding.tvPesan.visibility =
+                tvPesan.visibility =
                     if (list.isEmpty()) View.VISIBLE else View.GONE
             },
             onGagal = {
-                binding.progressBar.visibility = View.GONE
-                binding.tvPesan.text = "Gagal memuat data"   // error
-                binding.tvPesan.visibility = View.VISIBLE
+                progressBar.visibility = View.GONE
+                tvPesan.text = "Gagal memuat data"   // error
+                tvPesan.visibility = View.VISIBLE
             }
         )
     }
@@ -322,6 +332,8 @@ Baru lakukan perubahan setelah penjelasan itu.
   perbaiki ke versi manual (view standar + background drawable shape) TANPA diminta,
   lalu jelaskan singkat apa yang diganti. Custom theme color (Theme.AppCompat) bukan
   Material, jadi itu TIDAK perlu diutak-atik.
+- Kalau menemukan kode yang masih pakai ViewBinding/DataBinding, WAJIB ubah ke
+  findViewById TANPA diminta, lalu jelaskan singkat apa yang diganti.
 
 ## 20. Konvensi Git (3 lapis branch: main -> dev -> fitur)
 - main  : HANYA untuk hasil FINAL yang sudah jadi & stabil. Jangan ngoding di sini.

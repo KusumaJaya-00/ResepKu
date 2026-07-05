@@ -2,13 +2,15 @@ package com.example.resepku.adapter
 
 import android.content.res.ColorStateList
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.resepku.R
 import com.example.resepku.data.remote.Resep
-import com.example.resepku.databinding.ItemResepBinding
 
 class ResepAdapter(
     private val onItemClick: (Resep) -> Unit,
@@ -26,12 +28,9 @@ class ResepAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ResepViewHolder {
-        val binding = ItemResepBinding.inflate(
-            LayoutInflater.from(parent.context),
-            parent,
-            false
-        )
-        return ResepViewHolder(binding, onItemClick, onFavoriteClick)
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_resep, parent, false)
+        return ResepViewHolder(view, onItemClick, onFavoriteClick)
     }
 
     override fun getItemCount(): Int = daftarResep.size
@@ -42,30 +41,34 @@ class ResepAdapter(
     }
 
     class ResepViewHolder(
-        private val binding: ItemResepBinding,
+        itemView: View,
         private val onItemClick: (Resep) -> Unit,
         private val onFavoriteClick: (Resep) -> Unit
-    ) : RecyclerView.ViewHolder(binding.root) {
+    ) : RecyclerView.ViewHolder(itemView) {
+        private val tvNama: TextView = itemView.findViewById(R.id.tvNama)
+        private val chipKategori: TextView = itemView.findViewById(R.id.chipKategori)
+        private val imgResep: ImageView = itemView.findViewById(R.id.imgResep)
+        private val btnFavorit: ImageView = itemView.findViewById(R.id.btnFavorit)
 
         fun bind(resep: Resep, isFavorit: Boolean) {
-            binding.tvNama.text = resep.nama
-            binding.chipKategori.text = resep.kategori
+            tvNama.text = resep.nama
+            chipKategori.text = resep.kategori
 
-            Glide.with(binding.imgResep)
+            Glide.with(imgResep)
                 .load(resep.gambar)
                 .placeholder(R.drawable.bg_image_placeholder)
                 .error(R.drawable.bg_image_placeholder)
                 .centerCrop()
-                .into(binding.imgResep)
+                .into(imgResep)
 
-            binding.imgResep.contentDescription = binding.root.context.getString(
+            imgResep.contentDescription = itemView.context.getString(
                 R.string.desc_gambar_resep_format,
                 resep.nama
             )
 
-            binding.root.setOnClickListener { onItemClick(resep) }
+            itemView.setOnClickListener { onItemClick(resep) }
 
-            binding.btnFavorit.setImageResource(
+            btnFavorit.setImageResource(
                 if (isFavorit) R.drawable.ic_menu_favorit
                 else R.drawable.ic_menu_favorit_outline
             )
@@ -75,14 +78,14 @@ class ResepAdapter(
             } else {
                 R.color.stone_900
             }
-            binding.btnFavorit.imageTintList = ColorStateList.valueOf(
-                ContextCompat.getColor(binding.btnFavorit.context, warnaFavorit)
+            btnFavorit.imageTintList = ColorStateList.valueOf(
+                ContextCompat.getColor(btnFavorit.context, warnaFavorit)
             )
-            binding.btnFavorit.contentDescription = binding.root.context.getString(
+            btnFavorit.contentDescription = itemView.context.getString(
                 if (isFavorit) R.string.action_favorite_remove
                 else R.string.action_favorite_add
             )
-            binding.btnFavorit.setOnClickListener { onFavoriteClick(resep) }
+            btnFavorit.setOnClickListener { onFavoriteClick(resep) }
         }
     }
 }
