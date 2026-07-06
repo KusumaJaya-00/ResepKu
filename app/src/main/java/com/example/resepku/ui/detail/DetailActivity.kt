@@ -4,19 +4,21 @@ import android.content.res.ColorStateList
 import android.os.Bundle
 import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.ScrollView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import com.bumptech.glide.Glide
 import com.example.resepku.R
 import com.example.resepku.data.local.DatabaseHelper
 import com.example.resepku.data.remote.Resep
 
 class DetailActivity : AppCompatActivity() {
-    private lateinit var mainContainer: ConstraintLayout
+    private lateinit var mainContainer: ScrollView
 
 
     private var isFavorit = false
