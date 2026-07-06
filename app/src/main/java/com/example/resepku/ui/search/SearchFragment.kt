@@ -11,7 +11,6 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.resepku.R
 import com.example.resepku.adapter.ResepAdapter
@@ -43,8 +42,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         rvHasil = view.findViewById(R.id.rvHasil)
         pbLoading = view.findViewById(R.id.pbLoading)
         tvPesan = view.findViewById(R.id.tvPesan)
-
-        rvHasil.layoutManager = LinearLayoutManager(requireContext())
 
         viewModel = ViewModelProvider(this)[SearchViewModel::class.java]
         dbHelper = DatabaseHelper(requireContext())
