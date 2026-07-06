@@ -20,7 +20,7 @@
             <ImageView
                 android:id="@+id/ivGambarResep"
                 android:layout_width="match_parent"
-                android:layout_height="240dp"
+                android:layout_height="300dp"
                 android:background="@drawable/bg_image_placeholder"
                 android:contentDescription="@string/desc_gambar_resep"
                 android:scaleType="centerCrop" />

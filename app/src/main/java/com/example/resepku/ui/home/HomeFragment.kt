@@ -9,7 +9,7 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.resepku.R
@@ -52,7 +52,6 @@ class HomeFragment : Fragment() {
         // Inisialisasi DatabaseHelper
         databaseHelper = DatabaseHelper(requireContext())
 
-        rvResep.layoutManager = LinearLayoutManager(requireContext())
         viewModel = ViewModelProvider(this)[HomeViewModel::class.java]
 
         // Konfigurasi Adapter (Sesuaikan dengan fitur teman sekelompok)
