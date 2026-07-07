@@ -12,34 +12,14 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- Gambar resep + tombol favorit mengambang di pojok kanan atas -->
-        <FrameLayout
+        <!-- Gambar resep (polos, tanpa tumpukan) -->
+        <ImageView
+            android:id="@+id/ivGambarResep"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/ivGambarResep"
-                android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:background="@drawable/bg_image_placeholder"
-                android:contentDescription="@string/desc_gambar_resep"
-                android:scaleType="centerCrop" />
-
-            <!-- Tombol favorit mengambang di pojok kanan atas gambar -->
-            <ImageButton
-                android:id="@+id/btnFavorit"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_gravity="top|end"
-                android:layout_margin="12dp"
-                android:background="@color/transparent"
-                android:contentDescription="@string/desc_tombol_favorit"
-                android:padding="8dp"
-                android:scaleType="centerInside"
-                android:src="@drawable/ic_menu_favorit_outline"
-                android:tint="@color/red_600" />
-
-        </FrameLayout>
+            android:layout_height="300dp"
+            android:background="@drawable/bg_image_placeholder"
+            android:contentDescription="@string/desc_gambar_resep"
+            android:scaleType="centerCrop" />
 
         <!-- Nama resep -->
         <TextView
@@ -132,6 +112,22 @@
             android:textColor="@color/stone_900"
             android:textSize="16sp"
             tools:text="1. Panaskan minyak\n2. Tumis bawang putih\n3. Masukkan nasi" />
+
+        <!-- Tombol favorit full-width bentuk pil di bawah konten -->
+        <Button
+            android:id="@+id/btnFavorit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="32dp"
+            android:background="@drawable/bg_tombol_favorit"
+            android:paddingVertical="14dp"
+            android:text="@string/label_favorit"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
         <!-- Opsi B (nonaktif): RecyclerView untuk daftar langkah -->
         <!--

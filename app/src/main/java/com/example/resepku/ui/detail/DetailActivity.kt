@@ -1,8 +1,7 @@
 package com.example.resepku.ui.detail
 
-import android.content.res.ColorStateList
 import android.os.Bundle
-import android.widget.ImageButton
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.ScrollView
 import android.widget.TextView
@@ -45,7 +44,7 @@ class DetailActivity : AppCompatActivity() {
         val tvKategori = findViewById<TextView>(R.id.tvKategoriResep)
         val tvBahan = findViewById<TextView>(R.id.tvBahan)
         val tvLangkah = findViewById<TextView>(R.id.tvLangkah)
-        val btnFavorit = findViewById<ImageButton>(R.id.btnFavorit)
+        val btnFavorit = findViewById<Button>(R.id.btnFavorit)
 
         // Tampilkan data resep
         tvNama.text = resep.nama
@@ -88,16 +87,17 @@ class DetailActivity : AppCompatActivity() {
         }
     }
 
-    // Ganti icon & warna tombol favorit sesuai status
-    private fun aturTampilanFavorit(btnFavorit: ImageButton) {
-        btnFavorit.setImageResource(
-            if (isFavorit) R.drawable.ic_menu_favorit
-            else R.drawable.ic_menu_favorit_outline
-        )
-        val warna = if (isFavorit) R.color.red_600 else R.color.stone_900
-        btnFavorit.imageTintList = ColorStateList.valueOf(
-            ContextCompat.getColor(this, warna)
-        )
+    // Ganti background, teks, & warna teks tombol favorit sesuai status
+    private fun aturTampilanFavorit(btnFavorit: Button) {
+        if (isFavorit) {
+            btnFavorit.setBackgroundResource(R.drawable.bg_tombol_favorit_aktif)
+            btnFavorit.setText(R.string.label_batal_favorit)
+            btnFavorit.setTextColor(ContextCompat.getColor(this, R.color.orange_600))
+        } else {
+            btnFavorit.setBackgroundResource(R.drawable.bg_tombol_favorit)
+            btnFavorit.setText(R.string.label_favorit)
+            btnFavorit.setTextColor(ContextCompat.getColor(this, R.color.white))
+        }
         btnFavorit.contentDescription = getString(
             if (isFavorit) R.string.action_favorite_remove
             else R.string.action_favorite_add

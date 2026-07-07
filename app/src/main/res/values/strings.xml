@@ -27,4 +27,7 @@
 
     <string name="msg_favorit_ditambah">Ditambahkan ke favorit</string>
     <string name="msg_favorit_dihapus">Dihapus dari favorit</string>
+
+    <string name="label_favorit">Favorit</string>
+    <string name="label_batal_favorit">Batal Favorit</string>
 </resources>
