@@ -1,147 +1,165 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
+    android:orientation="vertical"
     tools:context=".ui.detail.DetailActivity">
 
-    <LinearLayout
+    <!-- Konten yang bisa di-scroll (mengisi sisa ruang di atas tombol) -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Gambar resep (polos, tanpa tumpukan) -->
+            <ImageView
+                android:id="@+id/ivGambarResep"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:background="@drawable/bg_image_placeholder"
+                android:contentDescription="@string/desc_gambar_resep"
+                android:scaleType="centerCrop" />
+
+            <!-- Nama resep -->
+            <TextView
+                android:id="@+id/tvNamaResep"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="16dp"
+                android:paddingTop="16dp"
+                android:paddingEnd="16dp"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                tools:text="Nasi Goreng Spesial" />
+
+            <!-- Chip kategori -->
+            <TextView
+                android:id="@+id/tvKategoriResep"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_chip_outline"
+                android:paddingStart="12dp"
+                android:paddingTop="4dp"
+                android:paddingEnd="12dp"
+                android:paddingBottom="4dp"
+                android:textColor="@color/orange_600"
+                android:textSize="12sp"
+                tools:text="Makanan Utama" />
+
+            <!-- Section: Bahan-Bahan -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="16dp"
+                android:paddingTop="24dp"
+                android:paddingEnd="16dp"
+                android:text="@string/label_bahan"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <!-- Opsi A (aktif): TextView panjang bernomor -->
+            <TextView
+                android:id="@+id/tvBahan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="4dp"
+                android:paddingStart="16dp"
+                android:paddingTop="8dp"
+                android:paddingEnd="16dp"
+                android:textColor="@color/stone_900"
+                android:textSize="16sp"
+                tools:text="1. 2 piring nasi putih\n2. 2 butir telur\n3. 3 siung bawang putih" />
+
+            <!-- Opsi B (nonaktif): RecyclerView untuk daftar bahan -->
+            <!--
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvBahan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                android:paddingStart="16dp"
+                android:paddingTop="8dp"
+                android:paddingEnd="16dp" />
+            -->
+
+            <!-- Section: Langkah Memasak -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="16dp"
+                android:paddingTop="24dp"
+                android:paddingEnd="16dp"
+                android:text="@string/label_langkah"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <!-- Opsi A (aktif): TextView panjang bernomor -->
+            <TextView
+                android:id="@+id/tvLangkah"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="4dp"
+                android:paddingStart="16dp"
+                android:paddingTop="8dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="32dp"
+                android:textColor="@color/stone_900"
+                android:textSize="16sp"
+                tools:text="1. Panaskan minyak\n2. Tumis bawang putih\n3. Masukkan nasi" />
+
+            <!-- Opsi B (nonaktif): RecyclerView untuk daftar langkah -->
+            <!--
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvLangkah"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                android:paddingStart="16dp"
+                android:paddingTop="8dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="32dp" />
+            -->
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <!-- Container pembungkus tombol favorit, transparan supaya terlihat mengambang -->
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:background="@android:color/transparent"
+        android:paddingStart="16dp"
+        android:paddingTop="12dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="12dp">
 
-        <!-- Gambar resep (polos, tanpa tumpukan) -->
-        <ImageView
-            android:id="@+id/ivGambarResep"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:background="@drawable/bg_image_placeholder"
-            android:contentDescription="@string/desc_gambar_resep"
-            android:scaleType="centerCrop" />
-
-        <!-- Nama resep -->
-        <TextView
-            android:id="@+id/tvNamaResep"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingStart="16dp"
-            android:paddingTop="16dp"
-            android:paddingEnd="16dp"
-            android:textColor="@color/black"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            tools:text="Nasi Goreng Spesial" />
-
-        <!-- Chip kategori -->
-        <TextView
-            android:id="@+id/tvKategoriResep"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/bg_chip_outline"
-            android:paddingStart="12dp"
-            android:paddingTop="4dp"
-            android:paddingEnd="12dp"
-            android:paddingBottom="4dp"
-            android:textColor="@color/orange_600"
-            android:textSize="12sp"
-            tools:text="Makanan Utama" />
-
-        <!-- Section: Bahan-Bahan -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingStart="16dp"
-            android:paddingTop="24dp"
-            android:paddingEnd="16dp"
-            android:text="@string/label_bahan"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-        <!-- Opsi A (aktif): TextView panjang bernomor -->
-        <TextView
-            android:id="@+id/tvBahan"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:lineSpacingExtra="4dp"
-            android:paddingStart="16dp"
-            android:paddingTop="8dp"
-            android:paddingEnd="16dp"
-            android:textColor="@color/stone_900"
-            android:textSize="16sp"
-            tools:text="1. 2 piring nasi putih\n2. 2 butir telur\n3. 3 siung bawang putih" />
-
-        <!-- Opsi B (nonaktif): RecyclerView untuk daftar bahan -->
-        <!--
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvBahan"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:nestedScrollingEnabled="false"
-            android:paddingStart="16dp"
-            android:paddingTop="8dp"
-            android:paddingEnd="16dp" />
-        -->
-
-        <!-- Section: Langkah Memasak -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingStart="16dp"
-            android:paddingTop="24dp"
-            android:paddingEnd="16dp"
-            android:text="@string/label_langkah"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-        <!-- Opsi A (aktif): TextView panjang bernomor -->
-        <TextView
-            android:id="@+id/tvLangkah"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:lineSpacingExtra="4dp"
-            android:paddingStart="16dp"
-            android:paddingTop="8dp"
-            android:paddingEnd="16dp"
-            android:paddingBottom="32dp"
-            android:textColor="@color/stone_900"
-            android:textSize="16sp"
-            tools:text="1. Panaskan minyak\n2. Tumis bawang putih\n3. Masukkan nasi" />
-
-        <!-- Tombol favorit full-width bentuk pil di bawah konten -->
         <Button
             android:id="@+id/btnFavorit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="32dp"
             android:background="@drawable/bg_tombol_favorit"
+            android:elevation="4dp"
+            android:gravity="center"
             android:paddingVertical="14dp"
             android:text="@string/label_favorit"
             android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="bold" />
 
-        <!-- Opsi B (nonaktif): RecyclerView untuk daftar langkah -->
-        <!--
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvLangkah"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:nestedScrollingEnabled="false"
-            android:paddingStart="16dp"
-            android:paddingTop="8dp"
-            android:paddingEnd="16dp"
-            android:paddingBottom="32dp" />
-        -->
+    </FrameLayout>
 
-    </LinearLayout>
-
-</ScrollView>
+</LinearLayout>

@@ -3,7 +3,7 @@ package com.example.resepku.ui.detail
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
-import android.widget.ScrollView
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -17,7 +17,7 @@ import com.example.resepku.data.local.DatabaseHelper
 import com.example.resepku.data.remote.Resep
 
 class DetailActivity : AppCompatActivity() {
-    private lateinit var mainContainer: ScrollView
+    private lateinit var mainContainer: LinearLayout
 
 
     private var isFavorit = false
@@ -26,9 +26,13 @@ class DetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
         mainContainer = findViewById(R.id.main)
+        val btnFavoritInset = findViewById<Button>(R.id.btnFavorit)
         ViewCompat.setOnApplyWindowInsetsListener(mainContainer) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            // Padding atas (status bar) ke root, kiri-kanan-bawah = 0 supaya tombol menempel tepi
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0)
+            // Padding bawah (navigation bar) ke tombol supaya teksnya tidak tertutup
+            btnFavoritInset.setPadding(0, btnFavoritInset.paddingTop, 0, systemBars.bottom)
             insets
         }
 
