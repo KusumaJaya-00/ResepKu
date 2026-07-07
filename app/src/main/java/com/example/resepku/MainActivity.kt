@@ -14,7 +14,15 @@ import com.example.resepku.ui.favorite.FavoriteFragment
 import com.example.resepku.ui.home.HomeFragment
 import com.example.resepku.ui.search.SearchFragment
 
+// Single activity dengan 3 tab (Home, Search, Favorite).
+// Setiap tab me-replace fragment dan mengubah gaya visual tab.
 class MainActivity : AppCompatActivity() {
+    private companion object {
+        const val TAB_HOME = 0
+        const val TAB_SEARCH = 1
+        const val TAB_FAVORIT = 2
+    }
+
     private lateinit var tabHome: LinearLayout
     private lateinit var tabSearch: LinearLayout
     private lateinit var tabFavorit: LinearLayout
@@ -29,7 +37,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-
+        // enableEdgeToEdge(): layout tembus sampai pojok layar.
+        // Listener di bawah beri padding agar konten tidak tertutup status bar & nav bar.
         setContentView(R.layout.activity_main)
 
         tabHome = findViewById(R.id.tabHome)
@@ -43,6 +52,7 @@ class MainActivity : AppCompatActivity() {
         tvTabFavorit = findViewById(R.id.tvTabFavorit)
         mainContainer = findViewById(R.id.main)
 
+        // insets.getInsets() = ambil ukuran status bar & nav bar, lalu set padding agar konten tidak tertutup.
         ViewCompat.setOnApplyWindowInsetsListener(mainContainer) { view, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             view.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -62,24 +72,21 @@ class MainActivity : AppCompatActivity() {
             aturTabAktif(TAB_FAVORIT)
         }
 
+        // savedInstanceState == null = pertama kali dibuat (bukan rotasi).
         if (savedInstanceState == null) {
             tampilkanFragment(HomeFragment())
             aturTabAktif(TAB_HOME)
         }
     }
 
+    // Pakai replace() bukan add() agar fragment lama dihapus, tidak menumpuk.
     private fun tampilkanFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragmentContainer, fragment)
             .commit()
     }
 
-    private companion object {
-        const val TAB_HOME = 0
-        const val TAB_SEARCH = 1
-        const val TAB_FAVORIT = 2
-    }
-
+    // Nonaktifkan semua tab dulu, baru aktifkan tab yang dipilih.
     private fun aturTabAktif(tab: Int) {
         nonaktifkan(tabHome, imgTabHome, tvTabHome)
         nonaktifkan(tabSearch, imgTabSearch, tvTabSearch)
@@ -92,6 +99,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // Tab aktif: bg orange, teks/ikon orange. Favorit: ganti icon outline → filled.
     private fun aktifkan(tab: LinearLayout, img: ImageView, tv: TextView) {
         tab.setBackgroundResource(R.drawable.bg_tab_active)
         if (tab.id == R.id.tabFavorit) {
@@ -102,6 +110,7 @@ class MainActivity : AppCompatActivity() {
         tv.setTextColor(warnaAktif)
     }
 
+    // Tab nonaktif: bg transparan, teks/ikon abu. Favorit: ganti icon filled → outline.
     private fun nonaktifkan(tab: LinearLayout, img: ImageView, tv: TextView) {
         tab.setBackgroundColor(ContextCompat.getColor(tab.context, R.color.transparent))
         if (tab.id == R.id.tabFavorit) {
