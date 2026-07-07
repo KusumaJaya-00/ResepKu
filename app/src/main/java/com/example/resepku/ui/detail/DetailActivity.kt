@@ -6,7 +6,6 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
@@ -18,21 +17,15 @@ import com.example.resepku.data.remote.Resep
 
 class DetailActivity : AppCompatActivity() {
     private lateinit var mainContainer: LinearLayout
-
-
     private var isFavorit = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
         mainContainer = findViewById(R.id.main)
-        val btnFavoritInset = findViewById<Button>(R.id.btnFavorit)
         ViewCompat.setOnApplyWindowInsetsListener(mainContainer) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            // Padding atas (status bar) ke root, kiri-kanan-bawah = 0 supaya tombol menempel tepi
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0)
-            // Padding bawah (navigation bar) ke tombol supaya teksnya tidak tertutup
-            btnFavoritInset.setPadding(0, btnFavoritInset.paddingTop, 0, systemBars.bottom)
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
