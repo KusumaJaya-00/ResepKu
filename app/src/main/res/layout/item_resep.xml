@@ -21,7 +21,6 @@
             android:layout_height="160dp"
             android:background="@drawable/bg_image_placeholder"
             android:clipToOutline="true"
-            android:contentDescription="@string/desc_gambar_resep"
             android:scaleType="centerCrop" />
 
         <LinearLayout
@@ -73,7 +72,6 @@
                 android:layout_height="48dp"
                 android:layout_marginStart="8dp"
                 android:background="@color/transparent"
-                android:contentDescription="@string/action_favorite_add"
                 android:padding="12dp"
                 android:src="@drawable/ic_menu_favorit_outline"
                 app:tint="@color/stone_900" />
