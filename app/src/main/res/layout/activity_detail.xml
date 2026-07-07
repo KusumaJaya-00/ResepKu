@@ -62,7 +62,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingStart="16dp"
-                android:paddingTop="24dp"
+                android:paddingTop="16dp"
                 android:paddingEnd="16dp"
                 android:text="@string/label_bahan"
                 android:textColor="@color/black"
@@ -137,29 +137,21 @@
 
     </ScrollView>
 
-    <!-- Container pembungkus tombol favorit, transparan supaya terlihat mengambang -->
-    <FrameLayout
+    <Button
+        android:id="@+id/btnFavorit"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        android:paddingStart="16dp"
-        android:paddingTop="12dp"
-        android:paddingEnd="16dp"
-        android:paddingBottom="12dp">
+        android:layout_height="64dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/bg_tombol_favorit"
+        android:text="@string/label_favorit"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/btnFavorit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_tombol_favorit"
-            android:elevation="4dp"
-            android:gravity="center"
-            android:paddingVertical="14dp"
-            android:text="@string/label_favorit"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-    </FrameLayout>
+    <!-- Container pembungkus tombol favorit, transparan supaya terlihat mengambang -->
 
 </LinearLayout>
