@@ -8,7 +8,7 @@
     android:orientation="vertical"
     tools:context=".ui.detail.DetailActivity">
 
-    <!-- Konten yang bisa di-scroll (mengisi sisa ruang di atas tombol) -->
+    <!-- ScrollView membungkus seluruh konten supaya bisa di-scroll -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- Gambar resep (polos, tanpa tumpukan) -->
+            <!-- Gambar resep, dimuat pakai Glide di Activity -->
             <ImageView
                 android:id="@+id/ivGambarResep"
                 android:layout_width="match_parent"
@@ -28,7 +28,7 @@
                 android:contentDescription="@string/desc_gambar_resep"
                 android:scaleType="centerCrop" />
 
-            <!-- Nama resep -->
+            <!-- Judul resep -->
             <TextView
                 android:id="@+id/tvNamaResep"
                 android:layout_width="match_parent"
@@ -41,7 +41,7 @@
                 android:textStyle="bold"
                 tools:text="Nasi Goreng Spesial" />
 
-            <!-- Chip kategori -->
+            <!-- Chip kategori (tampil seperti label kecil) -->
             <TextView
                 android:id="@+id/tvKategoriResep"
                 android:layout_width="wrap_content"
@@ -69,7 +69,7 @@
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
-            <!-- Opsi A (aktif): TextView panjang bernomor -->
+            <!-- Daftar bahan, diisi dari data resep di Activity -->
             <TextView
                 android:id="@+id/tvBahan"
                 android:layout_width="match_parent"
@@ -81,18 +81,6 @@
                 android:textColor="@color/stone_900"
                 android:textSize="16sp"
                 tools:text="1. 2 piring nasi putih\n2. 2 butir telur\n3. 3 siung bawang putih" />
-
-            <!-- Opsi B (nonaktif): RecyclerView untuk daftar bahan -->
-            <!--
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvBahan"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:nestedScrollingEnabled="false"
-                android:paddingStart="16dp"
-                android:paddingTop="8dp"
-                android:paddingEnd="16dp" />
-            -->
 
             <!-- Section: Langkah Memasak -->
             <TextView
@@ -106,7 +94,7 @@
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
-            <!-- Opsi A (aktif): TextView panjang bernomor -->
+            <!-- Daftar langkah memasak, diisi dari data resep di Activity -->
             <TextView
                 android:id="@+id/tvLangkah"
                 android:layout_width="match_parent"
@@ -120,23 +108,11 @@
                 android:textSize="16sp"
                 tools:text="1. Panaskan minyak\n2. Tumis bawang putih\n3. Masukkan nasi" />
 
-            <!-- Opsi B (nonaktif): RecyclerView untuk daftar langkah -->
-            <!--
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvLangkah"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:nestedScrollingEnabled="false"
-                android:paddingStart="16dp"
-                android:paddingTop="8dp"
-                android:paddingEnd="16dp"
-                android:paddingBottom="32dp" />
-            -->
-
         </LinearLayout>
 
     </ScrollView>
 
+    <!-- Tombol favorit, posisi tetap di bawah layar -->
     <Button
         android:id="@+id/btnFavorit"
         android:layout_width="match_parent"
@@ -151,7 +127,5 @@
         android:textColor="@color/white"
         android:textSize="16sp"
         android:textStyle="bold" />
-
-    <!-- Container pembungkus tombol favorit, transparan supaya terlihat mengambang -->
 
 </LinearLayout>
